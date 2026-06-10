@@ -1,0 +1,37 @@
+﻿@model List<Product>
+
+<h2 class="mb-4" style="text-align:center ; color: green">Add Product</h2>
+
+<br />
+
+<form action="~/Product/ActualCreate">
+            <div class="mb-3 form-group">
+                <label for="Id" class="form-label">ID</label>
+                <input type="number" class="form-content form-control" id="Id" name="Id" required />
+            </div>
+            <div class="mb-3 form-group">
+                <label for="Title" class="form-label">Product Title</label>
+                <input type="text" class="form-content form-control" id="Title" name="Title" required />
+            </div>
+
+            <div class="mb-3 form-group">
+                <label for="Description" class="form-label">Description</label>
+                <input class="form-control" id="Description" name="Description" rows="3" required />
+            </div>
+
+            <div class="mb-3 form-group">
+                <label for="Price" class="form-label">Price</label>
+                <input type="number" class="form-control" id="Price" name="Price" required />
+            </div>
+
+            <div class="mb-3 form-group">
+                <label for="Count" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="Count" name="Count" required />
+            </div>
+
+            <div class="d-flex justify-content-start gap-3 mt-4">
+                <button type="submit" class="btn btn-success">Save Product</button>
+        <a class="btn btn-secondary" href="~/Product/GetAllProduct">Cancel</a>
+            </div>
+
+        </form>
