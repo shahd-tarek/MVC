@@ -1,10 +1,10 @@
-﻿# 1. Base Image 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+﻿# 1. Base Image
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-# 2. compile
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# 2. Build Image
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # 
