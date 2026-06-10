@@ -1,51 +1,51 @@
-﻿# 1. Base Image لتشغيل التطبيق
+﻿# 1. Base Image 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-# 2. Image الـ Build عشان نعمل Compile للكود
+# 2. compile
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# نسخ ملف الـ csproj وعمل Restore للـ Dependencies
+# 
 COPY ["mvc1.csproj", "."]
 RUN dotnet restore "mvc1.csproj"
 
-# نسخ باقي ملفات المشروع وعمل Build
+# Build
 COPY . .
 RUN dotnet build "mvc1.csproj" -c Release -o /app/build
 
-# 3. مرحلة الـ Publish
+# 3.  Publish
 FROM build AS publish
 RUN dotnet publish "mvc1.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# 4. المرحلة النهائية: نسخ الملفات الجاهزة وتشغيل التطبيق
+# 4.
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "mvc1.dll"]# 1. Base Image لتشغيل التطبيق
+ENTRYPOINT ["dotnet", "mvc1.dll"]
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-# 2. Image الـ Build عشان نعمل Compile للكود
+# 2. 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# نسخ ملف الـ csproj وعمل Restore للـ Dependencies
+# 
 COPY ["mvc1.csproj", "."]
 RUN dotnet restore "mvc1.csproj"
 
-# نسخ باقي ملفات المشروع وعمل Build
+#Build
 COPY . .
 RUN dotnet build "mvc1.csproj" -c Release -o /app/build
 
-# 3. مرحلة الـ Publish
+# 3. Publish
 FROM build AS publish
 RUN dotnet publish "mvc1.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# 4. المرحلة النهائية: نسخ الملفات الجاهزة وتشغيل التطبيق
+# 4. 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
